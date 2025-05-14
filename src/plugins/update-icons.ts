@@ -43,8 +43,8 @@ export function pluginUpdateIcons(props: {
   return {
     name: 'plugin-update-icons',
     buildStart() {
-      const pathInputFile = path.join(__dirname, props.pathInputFile)
-      const pathOutputDirectory = path.join(__dirname, props.pathOutputDirectory)
+      const pathInputFile = props.pathInputFile
+      const pathOutputDirectory = props.pathOutputDirectory
 
       if (!fs.existsSync(pathOutputDirectory)) {
         fs.mkdirSync(pathOutputDirectory, { recursive: true })
