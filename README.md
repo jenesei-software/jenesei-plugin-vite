@@ -1,9 +1,9 @@
-# jenesei-template-library-functional
+# @jenesei-software/jenesei-plugin-vite
+
+Library for VITE
 
 ## Peer Dependencies
 
-
-### Installing dependencies
 
 To work correctly you need to install the following dependencies:
 
