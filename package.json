@@ -1,0 +1,50 @@
+{
+  "author": "Cyril Strone",
+  "name": "@jenesei-software/library-name",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenesei-software/library-name.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "build"
+  ],
+  "keywords": [
+    "react",
+    "ui",
+    "styled-components"
+  ],
+  "exports": {
+    "./function-test": {
+      "import": "./build/function-test.es.js",
+      "require": "./build/function-test.cjs.js",
+      "types": "./build/function-test.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/node": "^22.8.2",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "sharp": "^0.33.5",
+    "terser": "^5.38.1",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.12.0",
+    "vite": "^5.4.10",
+    "vite-plugin-bundle-analyzer": "^0.0.1",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-tsconfig-paths": "^5.0.1"
+  }
+}
