@@ -19,7 +19,7 @@ export default defineConfig(() => {
         insertTypesEntry: true,
         tsconfigPath: './tsconfig.json'
       })
-    ].filter(Boolean),
+    ],
     publicDir: false,
     build: {
       sourcemap: true,
@@ -29,7 +29,7 @@ export default defineConfig(() => {
       terserOptions: {
         compress: {
           // drop_console: true,
-          drop_debugger: true
+          // drop_debugger: true
         }
       },
       lib: {

@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs'
+import fs from 'fs'
 import { resolve } from 'path'
 
 export function pluginUpdateReadmePD(props: { insertionPoint: string }) {
@@ -9,7 +9,7 @@ export function pluginUpdateReadmePD(props: { insertionPoint: string }) {
       const readmePath = resolve(__dirname, 'README.md')
 
       async function updateReadme() {
-        const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
+        const packageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf8'))
         const peerDependencies = packageJson.peerDependencies || {}
         const commands = Object.keys(peerDependencies)
           .map(dep => `npm install ${dep} --save`)
@@ -24,7 +24,7 @@ ${commands}
 \`\`\`
 `
 
-        const readmeContent = await fs.readFile(readmePath, 'utf8')
+        const readmeContent = await fs.promises.readFile(readmePath, 'utf8')
         const insertionPoint = props.insertionPoint
 
         if (readmeContent.includes(insertionPoint)) {
@@ -33,7 +33,7 @@ ${commands}
           const beforeInsertion = readmeContent.slice(0, insertionIndex).trim()
           const newContent = beforeInsertion + '\n\n' + installSection
 
-          await fs.writeFile(readmePath, newContent, 'utf8')
+          await fs.promises.writeFile(readmePath, newContent, 'utf8')
           console.log(
             '\x1b[32minfo\x1b[0m => UpdateReadmePeerDependencies: README updated with dependency install command.'
           )

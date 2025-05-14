@@ -2,6 +2,36 @@ import fs from 'fs'
 import path from 'path'
 import sharp from 'sharp'
 
+export function generateManifestIcons(props: {
+  path: string
+  prefix: string
+  sizesBackgroundWhite: number[]
+  sizesBackgroundTransparent: number[]
+  sizesFavicon: number[]
+}) {
+  const icons = [
+    ...props.sizesBackgroundTransparent.map(size => ({
+      src: `${props.path}/${props.prefix}-${size}x${size}.png`,
+      sizes: `${size}x${size}`,
+      type: 'image/png',
+      purpose: 'any'
+    })),
+    ...props.sizesBackgroundWhite.map(size => ({
+      src: `${props.path}/${props.prefix}-${size}x${size}-white.png`,
+      sizes: `${size}x${size}`,
+      type: 'image/png',
+      purpose: 'any'
+    })),
+    ...props.sizesFavicon.map(size => ({
+      src: `${props.path}/${props.prefix}-${size}x${size}-favicon.ico`,
+      sizes: `${size}x${size}`,
+      type: 'image/x-icon',
+      purpose: 'any'
+    }))
+  ]
+  return icons
+}
+
 export function pluginUpdateIcons(props: {
   sizesBackgroundWhite: number[]
   sizesBackgroundTransparent: number[]
@@ -39,7 +69,7 @@ export function pluginUpdateIcons(props: {
             if (err) {
               console.log(`\x1b[33mwarn\x1b[0m => UpdateIcons: Error generate white ${size}x${size}.`)
             } else {
-              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create white ${size}x${size}.`)
+              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create ${size}x${size} white.`)
             }
           })
       })
@@ -50,7 +80,7 @@ export function pluginUpdateIcons(props: {
             if (err) {
               console.log(`\x1b[33mwarn\x1b[0m => UpdateIcons: Error generate favicon ${size}x${size}.`)
             } else {
-              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create favicon ${size}x${size}.`)
+              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create ${size}x${size} favicon.`)
             }
           })
       })
