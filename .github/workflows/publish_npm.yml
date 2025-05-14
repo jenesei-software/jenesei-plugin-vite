@@ -46,13 +46,6 @@ jobs:
           # npm version major
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
-
-      - name: Run README update script
-        run: |
-          node update-readme.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Commit and push changes
         run: |
           git add package.json package-lock.json README.md
@@ -82,7 +75,7 @@ jobs:
       - name: Check if version exists in NPM
         id: check_version_npm
         run: |
-          EXISTING_VERSION=$(npm view @jenesei-software/library-name versions --json | grep ${NEW_VERSION} || true)
+          EXISTING_VERSION=$(npm view @jenesei-software/jenesei-plugin-vite versions --json | grep ${NEW_VERSION} || true)
           if [ -n "$EXISTING_VERSION" ]; then
             echo "Version ${NEW_VERSION} already exists. Skipping publish."
             echo "publishNPM=false" >> $GITHUB_ENV

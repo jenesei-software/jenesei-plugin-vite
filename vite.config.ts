@@ -3,8 +3,6 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-import { peerDependencies } from './package.json'
-
 export default defineConfig(() => {
   return {
     resolve: {
@@ -30,19 +28,19 @@ export default defineConfig(() => {
       minify: 'terser',
       terserOptions: {
         compress: {
-          drop_console: true,
+          // drop_console: true,
           drop_debugger: true
         }
       },
       lib: {
         entry: {
-          ['function-test']: resolve(__dirname, 'src/functions/test/index.ts')
+          ['main']: resolve(__dirname, 'src/main.ts')
         },
         formats: ['es', 'cjs'],
         fileName: (format, name) => `${name}.${format}.js`
       },
       rollupOptions: {
-        external: Object.keys(peerDependencies),
+        external: ['fs', 'path'],
         output: {
           globals: {}
         }

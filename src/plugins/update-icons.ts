@@ -1,0 +1,59 @@
+import fs from 'fs'
+import path from 'path'
+import sharp from 'sharp'
+
+export function pluginUpdateIcons(props: {
+  sizesBackgroundWhite: number[]
+  sizesBackgroundTransparent: number[]
+  sizesFavicon: number[]
+  prefix: string
+  pathInputFile: string
+  pathOutputDirectory: string
+}) {
+  return {
+    name: 'plugin-update-icons',
+    buildStart() {
+      const pathInputFile = path.join(__dirname, props.pathInputFile)
+      const pathOutputDirectory = path.join(__dirname, props.pathOutputDirectory)
+
+      if (!fs.existsSync(pathOutputDirectory)) {
+        fs.mkdirSync(pathOutputDirectory, { recursive: true })
+      }
+
+      props.sizesBackgroundTransparent.forEach(size => {
+        sharp(pathInputFile)
+          .resize(size, size)
+          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}.png`), err => {
+            if (err) {
+              console.log(`\x1b[33mwarn\x1b[0m => UpdateIcons: Error generate ${size}x${size}.`)
+            } else {
+              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create ${size}x${size}.`)
+            }
+          })
+      })
+      props.sizesBackgroundWhite.forEach(size => {
+        sharp(pathInputFile)
+          .resize(size, size)
+          .flatten({ background: { r: 255, g: 255, b: 255, alpha: 1 } })
+          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}-white.png`), err => {
+            if (err) {
+              console.log(`\x1b[33mwarn\x1b[0m => UpdateIcons: Error generate white ${size}x${size}.`)
+            } else {
+              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create white ${size}x${size}.`)
+            }
+          })
+      })
+      props.sizesFavicon.forEach(size => {
+        sharp(pathInputFile)
+          .resize(size, size)
+          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}-favicon.ico`), err => {
+            if (err) {
+              console.log(`\x1b[33mwarn\x1b[0m => UpdateIcons: Error generate favicon ${size}x${size}.`)
+            } else {
+              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create favicon ${size}x${size}.`)
+            }
+          })
+      })
+    }
+  }
+}

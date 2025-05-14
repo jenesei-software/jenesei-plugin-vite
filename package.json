@@ -1,10 +1,10 @@
 {
   "author": "Cyril Strone",
-  "name": "@jenesei-software/library-name",
+  "name": "@jenesei-software/jenesei-plugin-vite",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jenesei-software/library-name.git"
+    "url": "git+https://github.com/jenesei-software/jenesei-plugin-vite.git"
   },
   "license": "MIT",
   "type": "module",
@@ -17,16 +17,19 @@
     "styled-components"
   ],
   "exports": {
-    "./function-test": {
-      "import": "./build/function-test.es.js",
-      "require": "./build/function-test.cjs.js",
-      "types": "./build/function-test.d.ts"
+    ".": {
+      "import": "./build/main.es.js",
+      "require": "./build/main.cjs.js",
+      "types": "./build/main.d.ts"
     }
   },
   "scripts": {
     "build": "tsc && vite build",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -37,8 +40,6 @@
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.11.0",
     "prettier": "^3.3.3",
-    "rollup-plugin-visualizer": "^5.14.0",
-    "sharp": "^0.33.5",
     "terser": "^5.38.1",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.12.0",
