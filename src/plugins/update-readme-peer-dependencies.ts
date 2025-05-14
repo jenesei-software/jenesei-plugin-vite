@@ -15,7 +15,7 @@ export function pluginUpdateReadmePD(props: { insertionPoint: string }) {
           .map(dep => `npm install ${dep} --save`)
           .join('\n')
         const installSection = `
-## Installing dependencies
+### Installing dependencies
 
 To work correctly you need to install the following dependencies:
 

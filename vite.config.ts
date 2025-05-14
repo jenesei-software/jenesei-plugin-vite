@@ -3,6 +3,8 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+import { pluginUpdateReadmePD } from './src/plugins/update-readme-peer-dependencies'
+
 export default defineConfig(() => {
   return {
     resolve: {
@@ -11,6 +13,7 @@ export default defineConfig(() => {
       }
     },
     plugins: [
+      pluginUpdateReadmePD({ insertionPoint: '## Peer Dependencies' }),
       tsconfigPaths(),
       dts({
         include: ['src/'],

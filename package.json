@@ -28,10 +28,11 @@
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
-  "dependencies": {
+  "peerDependencies": {
     "sharp": "^0.33.5"
   },
   "devDependencies": {
+    "sharp": "^0.33.5",
     "@eslint/js": "^9.13.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^22.8.2",
