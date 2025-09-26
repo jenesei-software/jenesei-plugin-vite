@@ -24,9 +24,11 @@
     }
   },
   "scripts": {
-    "build": "tsc && vite build",
-    "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+    "build":  "tsc && vite build",
+    "build:main": "tsc && vite build",
+    "biome:lint": "biome lint .",
+    "biome:format": "biome format --write src",
+    "changelog": "conventional-changelog -p eslint -i CHANGELOG.md -s -r 0"
   },
   "peerDependencies": {
     "sharp": "^0.33.5"
