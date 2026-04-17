@@ -82,11 +82,4 @@ export default defineConfig({
 npm install @jenesei-software/jenesei-plugin-vite --save-dev
 ```
 
-## Peer Dependencies
-
-
-To work correctly you need to install the following dependencies:
-
-```bash
-npm install sharp --save
-```
+`pluginUpdateIcons` does not require consumers to install `sharp` manually. It is installed automatically as a dependency of this package.

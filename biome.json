@@ -1,11 +1,27 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "src/**",
+      "*.ts",
+      "*.tsx",
+      "*.js",
+      "*.jsx",
+      ".storybook/**/*.tsx",
+      ".storybook-stories/**",
+      "!coverage",
+      "!node_modules",
+      "!build",
+      "!dist"
+    ]
+  },
   "formatter": {
+    "lineEnding": "lf",
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineEnding": "lf",
     "lineWidth": 120,
     "attributePosition": "auto",
     "bracketSameLine": false,
@@ -22,8 +38,14 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "nursery": {},
+      "a11y": {
+        "useButtonType": "warn",
+        "noStaticElementInteractions": "off"
+      },
       "suspicious": {
-        "noArrayIndexKey": "off"
+        "noArrayIndexKey": "off",
+        "noImportCycles": "error"
       },
       "style": {
         "useImportType": "off"

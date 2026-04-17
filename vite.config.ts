@@ -3,9 +3,6 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-import { peerDependencies } from './package.json'
-import { pluginUpdateReadmePD } from './src/plugins/update-readme-peer-dependencies'
-
 export default defineConfig(() => {
   return {
     resolve: {
@@ -14,11 +11,6 @@ export default defineConfig(() => {
       }
     },
     plugins: [
-      pluginUpdateReadmePD({
-        insertionPoint: '## Peer Dependencies',
-        pathPackageJson: resolve(__dirname, 'package.json'),
-        pathReadme: resolve(__dirname, 'README.md')
-      }),
       tsconfigPaths(),
       dts({
         include: ['src/'],
@@ -33,22 +25,15 @@ export default defineConfig(() => {
       sourcemap: true,
       outDir: './build',
       rootDir: './src',
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          // drop_console: true,
-          // drop_debugger: true
-        }
-      },
       lib: {
         entry: {
-          ['main']: resolve(__dirname, 'src/main.ts')
+          ['index']: resolve(__dirname, 'src/index.ts')
         },
         formats: ['es', 'cjs'],
         fileName: (format, name) => `${name}.${format}.js`
       },
       rollupOptions: {
-        external: [...Object.keys(peerDependencies), 'fs', 'path', 'os', 'sharp'],
+        external: ['fs', 'path', 'os', 'sharp'],
         output: {
           globals: {}
         }
