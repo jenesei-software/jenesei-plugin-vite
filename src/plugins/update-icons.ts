@@ -1,6 +1,7 @@
-import fs from 'fs'
-import path from 'path'
 import sharp from 'sharp'
+
+import fs from 'node:fs'
+import path from 'node:path'
 
 export function generateManifestIcons(props: {
   path: string

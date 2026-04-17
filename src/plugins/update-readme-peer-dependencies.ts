@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 
 export function pluginUpdateReadmePD(props: { insertionPoint: string; pathPackageJson: string; pathReadme: string }) {
   return {

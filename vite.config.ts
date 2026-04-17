@@ -27,6 +27,7 @@ export default defineConfig(() => {
       sourcemap: true,
       outDir: './build',
       rootDir: './src',
+      minify: 'esbuild',
       lib: {
         entry: {
           index: resolve(__dirname, 'src/index.ts'),
@@ -35,7 +36,7 @@ export default defineConfig(() => {
         fileName: (format, name) => `${name}.${format}.js`,
       },
       rollupOptions: {
-        external: ['fs', 'path', 'os', 'sharp'],
+        external: ['node:fs', 'node:path', 'sharp'],
         output: {
           globals: {},
         },
