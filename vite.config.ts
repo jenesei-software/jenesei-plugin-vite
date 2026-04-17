@@ -12,13 +12,16 @@ export default defineConfig(() => {
     },
     plugins: [
       dts({
-        include: ['src/'],
-        exclude: [],
-        rollupTypes: true,
-        insertTypesEntry: true,
         tsconfigPath: './tsconfig.json',
-      }),
-    ].filter(Boolean),
+        outDir: './build',
+        entryRoot: './src',
+        compilerOptions: {
+          rootDir: './src'
+        },
+        insertTypesEntry: true,
+        logLevel: 'info'
+      })
+    ],
     publicDir: false,
     build: {
       sourcemap: true,

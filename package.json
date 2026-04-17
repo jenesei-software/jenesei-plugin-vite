@@ -23,9 +23,8 @@
   },
   "scripts": {
     "bundle-visualizer": "npx vite-bundle-visualizer",
-    "build:storybook": "cross-env NODE_ENV=bundle-analyzer tsc && vite build",
-    "build": "tsc && vite build",
-    "build:main": "tsc && vite build",
+    "build": "vite build",
+    "build:main": "vite build",
     "biome:lint": "biome lint src",
     "biome:lint:check": "biome lint src --no-fix",
     "biome:format": "biome format --write src",
