@@ -27,7 +27,6 @@ export default defineConfig(() => {
       sourcemap: true,
       outDir: './build',
       rootDir: './src',
-      minify: 'esbuild',
       lib: {
         entry: {
           index: resolve(__dirname, 'src/index.ts'),
