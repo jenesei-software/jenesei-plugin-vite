@@ -12,9 +12,7 @@
     "build"
   ],
   "keywords": [
-    "react",
-    "ui",
-    "styled-components"
+    "vite"
   ],
   "exports": {
     ".": {
@@ -24,6 +22,8 @@
     }
   },
   "scripts": {
+    "bundle-visualizer": "npx vite-bundle-visualizer",
+    "build:storybook": "cross-env NODE_ENV=bundle-analyzer tsc && vite build",
     "build": "tsc && vite build",
     "build:main": "tsc && vite build",
     "biome:lint": "biome lint src",
@@ -40,10 +40,8 @@
   "devDependencies": {
     "@biomejs/biome": "^2.4.12",
     "@types/node": "^25.6.0",
-    "globals": "^17.5.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.8",
-    "vite-plugin-bundle-analyzer": "^0.0.1",
     "vite-plugin-dts": "^4.5.4",
     "vite-tsconfig-paths": "^6.1.1"
   }
