@@ -17,6 +17,7 @@
     "skipLibCheck": true,
 
     // Keep path aliases aligned with Vite config.
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@local/*": ["src/*"]
