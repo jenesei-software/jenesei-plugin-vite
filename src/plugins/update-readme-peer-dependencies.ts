@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { logger } from '../logger'
 
 export function pluginUpdateReadmePD(props: { insertionPoint: string; pathPackageJson: string; pathReadme: string }) {
   return {
@@ -28,20 +29,18 @@ ${commands}
           const insertionIndex = readmeContent.indexOf(insertionPoint) + insertionPoint.length
 
           const beforeInsertion = readmeContent.slice(0, insertionIndex).trim()
-          const newContent = beforeInsertion + '\n\n' + installSection
+          const newContent = `${beforeInsertion}\n\n${installSection}`
 
           await fs.promises.writeFile(pathReadme, newContent, 'utf8')
-          console.log(
-            '\x1b[32minfo\x1b[0m => UpdateReadmePeerDependencies: README updated with dependency install command.'
-          )
+          logger.info('UpdateReadmePeerDependencies: README updated with dependency install command.')
         } else {
-          console.log(
-            '\x1b[33mwarn\x1b[0m => UpdateReadmePeerDependencies: Could not find section to insert into README.'
-          )
+          logger.warn('UpdateReadmePeerDependencies: Could not find section to insert into README.')
         }
       }
 
-      updateReadme().catch(console.error)
+      updateReadme().catch(error => {
+        logger.error('UpdateReadmePeerDependencies: Failed to update README.', error)
+      })
     }
   }
 }

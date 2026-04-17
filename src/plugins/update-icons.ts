@@ -2,6 +2,7 @@ import sharp from 'sharp'
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { logger } from '../logger'
 
 export function generateManifestIcons(props: {
   path: string
@@ -56,9 +57,9 @@ export function pluginUpdateIcons(props: {
           .resize(size, size)
           .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}.png`), err => {
             if (err) {
-              console.log(`\x1b[33mwarn\x1b[0m => UpdateIcons: Error generate ${size}x${size}.`)
+              logger.warn(`UpdateIcons: Error generate ${size}x${size}.`, err)
             } else {
-              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create ${size}x${size}.`)
+              logger.info(`UpdateIcons: Create ${size}x${size}.`)
             }
           })
       })
@@ -68,9 +69,9 @@ export function pluginUpdateIcons(props: {
           .flatten({ background: { r: 255, g: 255, b: 255, alpha: 1 } })
           .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}-white.png`), err => {
             if (err) {
-              console.log(`\x1b[33mwarn\x1b[0m => UpdateIcons: Error generate white ${size}x${size}.`)
+              logger.warn(`UpdateIcons: Error generate white ${size}x${size}.`, err)
             } else {
-              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create ${size}x${size} white.`)
+              logger.info(`UpdateIcons: Create ${size}x${size} white.`)
             }
           })
       })
@@ -79,9 +80,9 @@ export function pluginUpdateIcons(props: {
           .resize(size, size)
           .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}-favicon.ico`), err => {
             if (err) {
-              console.log(`\x1b[33mwarn\x1b[0m => UpdateIcons: Error generate favicon ${size}x${size}.`)
+              logger.warn(`UpdateIcons: Error generate favicon ${size}x${size}.`, err)
             } else {
-              console.log(`\x1b[32minfo\x1b[0m => UpdateIcons: Create ${size}x${size} favicon.`)
+              logger.info(`UpdateIcons: Create ${size}x${size} favicon.`)
             }
           })
       })
