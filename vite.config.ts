@@ -35,7 +35,7 @@ export default defineConfig(() => {
         fileName: (format, name) => `${name}.${format}.js`,
       },
       rollupOptions: {
-        external: ['node:fs', 'node:path', 'sharp', '@jenesei-software/jenesei-library-log'],
+        external: ['node:fs', 'node:path', 'sharp'],
         output: {
           globals: {},
         },
