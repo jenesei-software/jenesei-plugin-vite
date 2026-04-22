@@ -35,15 +35,18 @@
     "changelog": "conventional-changelog -p eslint -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
-    "@jenesei-software/jenesei-library-log": "^2.0.0",
     "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.12",
+    "@jenesei-software/jenesei-library-log": "^2.0.0",
     "@types/node": "^25.6.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.8",
     "vite-plugin-dts": "^4.5.4",
     "vite-tsconfig-paths": "^6.1.1"
+  },
+  "peerDependencies": {
+    "@jenesei-software/jenesei-library-log": "^2.0.0"
   }
 }
