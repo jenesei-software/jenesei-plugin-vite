@@ -1,91 +1,91 @@
-import sharp from 'sharp'
+import sharp from 'sharp';
 
-import fs from 'node:fs'
-import path from 'node:path'
-import { logger } from '../logger'
+import fs from 'node:fs';
+import path from 'node:path';
+import { logger } from '../logger';
 
 export function generateManifestIcons(props: {
-  path: string
-  prefix: string
-  sizesBackgroundWhite: number[]
-  sizesBackgroundTransparent: number[]
-  sizesFavicon: number[]
+  path: string;
+  prefix: string;
+  sizesBackgroundWhite: number[];
+  sizesBackgroundTransparent: number[];
+  sizesFavicon: number[];
 }) {
   const icons = [
-    ...props.sizesBackgroundTransparent.map(size => ({
+    ...props.sizesBackgroundTransparent.map((size) => ({
       src: `${props.path}/${props.prefix}-${size}x${size}.png`,
       sizes: `${size}x${size}`,
       type: 'image/png',
-      purpose: 'any'
+      purpose: 'any',
     })),
-    ...props.sizesBackgroundWhite.map(size => ({
+    ...props.sizesBackgroundWhite.map((size) => ({
       src: `${props.path}/${props.prefix}-${size}x${size}-white.png`,
       sizes: `${size}x${size}`,
       type: 'image/png',
-      purpose: 'any'
+      purpose: 'any',
     })),
-    ...props.sizesFavicon.map(size => ({
+    ...props.sizesFavicon.map((size) => ({
       src: `${props.path}/${props.prefix}-${size}x${size}-favicon.ico`,
       sizes: `${size}x${size}`,
       type: 'image/x-icon',
-      purpose: 'any'
-    }))
-  ]
-  return icons
+      purpose: 'any',
+    })),
+  ];
+  return icons;
 }
 
 export function pluginUpdateIcons(props: {
-  sizesBackgroundWhite: number[]
-  sizesBackgroundTransparent: number[]
-  sizesFavicon: number[]
-  prefix: string
-  pathInputFile: string
-  pathOutputDirectory: string
+  sizesBackgroundWhite: number[];
+  sizesBackgroundTransparent: number[];
+  sizesFavicon: number[];
+  prefix: string;
+  pathInputFile: string;
+  pathOutputDirectory: string;
 }) {
   return {
     name: 'plugin-update-icons',
     buildStart() {
-      const pathInputFile = props.pathInputFile
-      const pathOutputDirectory = props.pathOutputDirectory
+      const pathInputFile = props.pathInputFile;
+      const pathOutputDirectory = props.pathOutputDirectory;
 
       if (!fs.existsSync(pathOutputDirectory)) {
-        fs.mkdirSync(pathOutputDirectory, { recursive: true })
+        fs.mkdirSync(pathOutputDirectory, { recursive: true });
       }
 
-      props.sizesBackgroundTransparent.forEach(size => {
+      props.sizesBackgroundTransparent.forEach((size) => {
         sharp(pathInputFile)
           .resize(size, size)
-          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}.png`), err => {
+          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}.png`), (err) => {
             if (err) {
-              logger.warn(`UpdateIcons: Error generate ${size}x${size}.`, err)
+              logger.warn(`UpdateIcons: Error generate ${size}x${size}.`, err);
             } else {
-              logger.info(`UpdateIcons: Create ${size}x${size}.`)
+              logger.info(`UpdateIcons: Create ${size}x${size}.`);
             }
-          })
-      })
-      props.sizesBackgroundWhite.forEach(size => {
+          });
+      });
+      props.sizesBackgroundWhite.forEach((size) => {
         sharp(pathInputFile)
           .resize(size, size)
           .flatten({ background: { r: 255, g: 255, b: 255, alpha: 1 } })
-          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}-white.png`), err => {
+          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}-white.png`), (err) => {
             if (err) {
-              logger.warn(`UpdateIcons: Error generate white ${size}x${size}.`, err)
+              logger.warn(`UpdateIcons: Error generate white ${size}x${size}.`, err);
             } else {
-              logger.info(`UpdateIcons: Create ${size}x${size} white.`)
+              logger.info(`UpdateIcons: Create ${size}x${size} white.`);
             }
-          })
-      })
-      props.sizesFavicon.forEach(size => {
+          });
+      });
+      props.sizesFavicon.forEach((size) => {
         sharp(pathInputFile)
           .resize(size, size)
-          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}-favicon.ico`), err => {
+          .toFile(path.join(pathOutputDirectory, `${props.prefix}-${size}x${size}-favicon.ico`), (err) => {
             if (err) {
-              logger.warn(`UpdateIcons: Error generate favicon ${size}x${size}.`, err)
+              logger.warn(`UpdateIcons: Error generate favicon ${size}x${size}.`, err);
             } else {
-              logger.info(`UpdateIcons: Create ${size}x${size} favicon.`)
+              logger.info(`UpdateIcons: Create ${size}x${size} favicon.`);
             }
-          })
-      })
-    }
-  }
+          });
+      });
+    },
+  };
 }

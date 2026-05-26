@@ -1,5 +1,5 @@
-import { createLogger } from '@jenesei-software/jenesei-library-log'
+import { createLogger } from '@jenesei-software/jenesei-library-log';
 
 export const logger = createLogger({
-  name: 'jenesei-plugin-vite'
-})
+  name: 'jenesei-plugin-vite',
+});
