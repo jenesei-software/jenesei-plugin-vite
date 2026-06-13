@@ -1,13 +1,10 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 import path, { resolve } from 'node:path';
-import process from 'node:process';
 
-import { pluginWriteBuildInfo } from './src/plugins/write-build-info';
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd());
+export default defineConfig(() => {
   const outputDir = './build';
 
   return {
@@ -45,12 +42,7 @@ export default defineConfig(({ mode }) => {
         },
         insertTypesEntry: true,
         logLevel: 'info',
-      }),
-      pluginWriteBuildInfo({
-        pathBuildInfo: resolve(__dirname, outputDir, 'build-info.txt'),
-        version: env.VITE_APP_VERSION || 'unknown',
-        mode,
-      }),
+      })
     ],
   };
 });
