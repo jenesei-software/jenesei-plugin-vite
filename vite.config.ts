@@ -1,31 +1,25 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import dts from 'vite-plugin-dts';
 
 import path, { resolve } from 'node:path';
+import process from 'node:process';
 
-export default defineConfig(() => {
+import { pluginWriteBuildInfo } from './src/plugins/write-build-info';
+
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd());
+  const outputDir = './build';
+
   return {
     resolve: {
       alias: {
         '@local': path.resolve(__dirname, './src'),
       },
     },
-    plugins: [
-      dts({
-        tsconfigPath: './tsconfig.json',
-        outDir: './build',
-        entryRoot: './src',
-        compilerOptions: {
-          rootDir: './src'
-        },
-        insertTypesEntry: true,
-        logLevel: 'info'
-      })
-    ],
     publicDir: false,
     build: {
       sourcemap: true,
-      outDir: './build',
+      outDir: outputDir,
       rootDir: './src',
       lib: {
         entry: {
@@ -41,5 +35,22 @@ export default defineConfig(() => {
         },
       },
     },
+    plugins: [
+      dts({
+        tsconfigPath: './tsconfig.json',
+        outDir: outputDir,
+        entryRoot: './src',
+        compilerOptions: {
+          rootDir: './src',
+        },
+        insertTypesEntry: true,
+        logLevel: 'info',
+      }),
+      pluginWriteBuildInfo({
+        pathBuildInfo: resolve(__dirname, outputDir, 'build-info.txt'),
+        version: env.VITE_APP_VERSION || 'unknown',
+        mode,
+      }),
+    ],
   };
 });

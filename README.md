@@ -4,10 +4,11 @@ Collection of Vite plugins for automated project maintenance and asset generatio
 
 ## Features
 
-This library provides two main Vite plugins:
+This library provides three main Vite plugins:
 
 1. **pluginUpdateIcons** - Automatically generates multiple icon sizes and formats from a source image
 2. **pluginUpdateReadmePD** - Automatically updates README.md with peer dependency installation instructions
+3. **pluginWriteBuildInfo** - Writes build metadata to a text file after bundle generation
 
 ## Plugins
 
@@ -75,6 +76,44 @@ export default defineConfig({
 2. Generates npm install commands for each dependency
 3. Finds the insertion point in README.md
 4. Updates the README with formatted installation instructions
+
+### pluginWriteBuildInfo
+
+Writes build metadata to a text file after Vite finishes generating the bundle. Useful for exposing the current app version, build mode, and build timestamp to runtime checks.
+
+**Parameters:**
+- `pathBuildInfo: string` - Path where the build info file should be written
+- `version: string` - Application version to write
+- `mode: string` - Vite mode to write
+
+**Usage Example:**
+```typescript
+import path from 'node:path'
+import process from 'node:process'
+import { defineConfig, loadEnv } from 'vite'
+import { pluginWriteBuildInfo } from '@jenesei-software/jenesei-plugin-vite'
+
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd())
+
+  return {
+    plugins: [
+      pluginWriteBuildInfo({
+        pathBuildInfo: path.resolve(__dirname, 'build/build-info.txt'),
+        version: env.VITE_APP_VERSION || 'unknown',
+        mode
+      })
+    ]
+  }
+})
+```
+
+**Generated File:**
+```text
+version: 2.6.0
+mode: production
+builtAt: 2026-06-14T00:00:00.000Z
+```
 
 ## Installation
 
