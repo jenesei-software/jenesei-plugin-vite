@@ -4,7 +4,7 @@ import { logger } from '../logger';
 export function pluginUpdateReadmePD(props: { insertionPoint: string; pathPackageJson: string; pathReadme: string }) {
   return {
     name: 'plugin-update-readme-peer-dependencies',
-    buildStart() {
+    async buildStart() {
       const pathPackageJson = props.pathPackageJson;
       const pathReadme = props.pathReadme;
 
@@ -38,9 +38,11 @@ ${commands}
         }
       }
 
-      updateReadme().catch((error) => {
+      try {
+        await updateReadme();
+      } catch (error) {
         logger.error('UpdateReadmePeerDependencies: Failed to update README.', error);
-      });
+      }
     },
   };
 }

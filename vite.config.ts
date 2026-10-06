@@ -23,7 +23,7 @@ export default defineConfig(() => {
           index: resolve(__dirname, 'src/index.ts'),
         },
         formats: ['es', 'cjs'],
-        fileName: (format, name) => `${name}.${format}.js`,
+        fileName: (format, name) => (format === 'es' ? `${name}.es.js` : `${name}.cjs`),
       },
       rollupOptions: {
         external: ['node:fs', 'node:path', 'sharp'],
