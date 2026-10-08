@@ -100,18 +100,19 @@ import { defineConfig, loadEnv } from 'vite'
 import { pluginWriteBuildInfo } from '@jenesei-software/jenesei-plugin-vite'
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd())
+    const env = loadEnv(mode, process.cwd())
+    const pkg = require('./package.json') as { version: string }
 
-  return {
-    plugins: [
-      pluginWriteBuildInfo({
-        pathBuildInfo: path.resolve(__dirname, 'build/build-info.txt'),
-        version: env.VITE_APP_VERSION || 'unknown',
-        mode
-      })
-    ]
-  }
-})
+    return {
+      plugins: [
+        pluginWriteBuildInfo({
+          pathBuildInfo: path.resolve(__dirname, 'build/build-info.txt'),
+          version: pkg.version,
+          mode
+        })
+      ]
+    }
+  })
 ```
 
 **Generated File:**
