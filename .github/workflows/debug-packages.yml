@@ -1,0 +1,31 @@
+name: debug-packages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+          registry-url: https://registry.npmjs.org
+
+      - name: Debug npm auth
+        env:
+          ACCESS_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "userconfig=${NPM_CONFIG_USERCONFIG:-unset}"
+          echo "token_length=${#ACCESS_GITHUB_TOKEN}"
+          NPMRC="${NPM_CONFIG_USERCONFIG:-$HOME/.npmrc}"
+          echo "//npm.pkg.github.com/:_authToken=$ACCESS_GITHUB_TOKEN" >> "$NPMRC"
+          echo "@jenesei-software:registry=https://npm.pkg.github.com/" >> "$NPMRC"
+          sed -E 's/(_authToken=).*/\1***/' "$NPMRC"
+          npm whoami --registry=https://npm.pkg.github.com/ || echo "whoami failed"
