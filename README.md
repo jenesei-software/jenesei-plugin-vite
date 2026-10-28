@@ -4,7 +4,7 @@ Collection of Vite plugins for automated project maintenance and asset generatio
 
 ## 🚀 ACTUAL VERSIONS
 
-- `3.0.1`
+- `3.0.2`
 
 ## Features
 

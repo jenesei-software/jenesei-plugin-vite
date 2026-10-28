@@ -1,3 +1,9 @@
+## [3.0.2](https://github.com/jenesei-software/jenesei-plugin-vite/compare/v3.0.1...v3.0.2) (2026-10-28)
+
+
+### Bug Fixes
+
+* **ci:** allow publishing to GitHub Packages ([5c48049](https://github.com/jenesei-software/jenesei-plugin-vite/commit/5c480493b2c2e7bb15f10126fcb225aac848e068))
 ## [3.0.1](https://github.com/jenesei-software/jenesei-plugin-vite/compare/v3.0.0...v3.0.1) (2026-10-28)
 
 
