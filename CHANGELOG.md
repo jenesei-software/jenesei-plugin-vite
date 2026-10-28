@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/jenesei-software/jenesei-plugin-vite/compare/v3.0.0...v3.0.1) (2026-10-28)
+
+
+### Features
+
+* **icons:** enhance favicon generation and configuration options ([e50a48f](https://github.com/jenesei-software/jenesei-plugin-vite/commit/e50a48fb18dd4641d628fcae4c861eaeecc5734b))
 
 # [2.0.0](https://github.com/jenesei-software/jenesei-plugin-vite/compare/v1.3.1...v2.0.0) (2026-04-17)
 
