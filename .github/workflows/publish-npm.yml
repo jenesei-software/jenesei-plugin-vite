@@ -1,0 +1,34 @@
+name: publish-npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref to publish (tag or commit)"
+        required: true
+        default: "v3.0.3"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Publish to npmjs.org
+        run: npm publish --access public --registry=https://registry.npmjs.org/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_CYRILSTRONE_TOKEN }}
