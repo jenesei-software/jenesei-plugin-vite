@@ -22,8 +22,11 @@ Automatically generates icon files in various sizes and formats from a single so
 
 **Parameters:**
 - `sizesBackgroundTransparent: number[]` - Array of pixel sizes for transparent background icons
-- `sizesBackgroundWhite: number[]` - Array of pixel sizes for white background icons  
-- `sizesFavicon: number[]` - Array of pixel sizes for favicon (.ico) files
+- `sizesBackgroundWhite: number[]` - Array of pixel sizes for white background icons
+- `sizesFavicon: number[]` - Pixel sizes combined into one multi-size `.ico` file
+- `faviconFileName?: string` - ICO filename, `favicon.ico` by default
+- `pathFaviconOutputDirectory?: string` - Directory for the ICO, `pathOutputDirectory` by default
+- `faviconDensity?: number` - SVG rasterization density for the ICO, `384` by default
 - `prefix: string` - Filename prefix for generated icons
 - `pathInputFile: string` - Path to the source image file
 - `pathOutputDirectory: string` - Directory where generated icons will be saved
@@ -38,6 +41,8 @@ export default defineConfig({
       sizesBackgroundTransparent: [192, 512],
       sizesBackgroundWhite: [192, 512],
       sizesFavicon: [16, 32, 48],
+      faviconFileName: 'favicon.ico',
+      pathFaviconOutputDirectory: './public',
       prefix: 'app-icon',
       pathInputFile: './src/assets/logo.png',
       pathOutputDirectory: './public/icons'
@@ -49,7 +54,7 @@ export default defineConfig({
 **Generated Files:**
 - `{prefix}-{size}x{size}.png` - Transparent background
 - `{prefix}-{size}x{size}-white.png` - White background
-- `{prefix}-{size}x{size}-favicon.ico` - Favicon format
+- `{faviconFileName}` - One ICO containing every size from `sizesFavicon` (PNG frames)
 
 **Behaviour:**
 - Generation runs in the awaited `buildStart` hook, so every icon exists before Vite empties `outDir` and copies `publicDir` into it. Generated files are always present in the build output.
